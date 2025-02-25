@@ -75,20 +75,12 @@ const khand = Khand({
 const Home = () => {
   const globeEl = useRef();
   const [globeMaterial, setGlobeMaterial] = useState(null);
-
+  const [globeReady, setGlobeReady] = useState(false);
   const [countries, setCountries] = useState({ features: [] });
-  const [altitude, setAltitude] = useState(0.1);
-  const [transitionDuration, setTransitionDuration] = useState(1000);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setGlobeMaterial(new THREE.MeshBasicMaterial({ color: "#4B5EF7" }));
-      globeEl.current.controls().autoRotate = true;
-      globeEl.current.controls().autoRotateSpeed = 1.4;
-
-      globeEl.current.controls().enableZoom = false; // Allow manual zooming
-      globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
-      globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
     }
   }, []);
 
@@ -110,6 +102,18 @@ const Home = () => {
         }, 3000);
       });
   }, []);
+
+  useEffect(() => {
+    if (!globeRef.current) {
+      return;
+    }
+    globeEl.current.controls().autoRotate = true;
+    globeEl.current.controls().autoRotateSpeed = 1.4;
+
+    globeEl.current.controls().enableZoom = false; // Allow manual zooming
+    globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
+    globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
+  }, [globeReady]);
 
   return (
     <div
@@ -266,6 +270,7 @@ const Home = () => {
               globeMaterial={globeMaterial} // Sets globe color to red
               className=" flex justify-center"
               ref={globeEl}
+              onGlobeReady={() => setGlobeReady(true)}
               backgroundColor="rgba(0,0,0,0)"
               hexPolygonsData={countries.features}
               hexPolygonResolution={3}
