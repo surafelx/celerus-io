@@ -5,6 +5,13 @@ import Globe from "react-globe.gl";
 import Image from "next/image";
 import { Tektur, Khand } from "next/font/google";
 import * as THREE from "three";
+import dynamic from 'next/dynamic';
+
+
+const Globe = dynamic(() => import('react-globe.gl'), {
+  ssr: false, // This ensures the component is only rendered on the client side
+});
+
 
 const suggestions = [
   "What type of talent are you looking for?",
@@ -12,6 +19,8 @@ const suggestions = [
   "AI engineer",
   "Senior frontend engineer",
   "Backend developer",
+
+  
 ];
 
 const TypingInput = () => {
@@ -21,6 +30,7 @@ const TypingInput = () => {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    
     const currentText = suggestions[index];
     if (!deleting) {
       // Typing effect
@@ -82,7 +92,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window != "undefined") {
       globeEl.current.controls().autoRotate = true;
       globeEl.current.controls().autoRotateSpeed = 1.4;
 
