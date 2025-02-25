@@ -77,10 +77,18 @@ const Home = () => {
   const [globeMaterial, setGlobeMaterial] = useState(null);
 
   const [countries, setCountries] = useState({ features: [] });
+  const [altitude, setAltitude] = useState(0.1);
+  const [transitionDuration, setTransitionDuration] = useState(1000);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setGlobeMaterial(new THREE.MeshBasicMaterial({ color: "#4B5EF7" }));
+      globeEl.current.controls().autoRotate = true;
+      globeEl.current.controls().autoRotateSpeed = 1.4;
+
+      globeEl.current.controls().enableZoom = false; // Allow manual zooming
+      globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
+      globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
     }
   }, []);
 
@@ -92,22 +100,15 @@ const Home = () => {
       .then((res) => res.json())
       .then((countries) => {
         setCountries(countries);
+
+        setTimeout(() => {
+          setTransitionDuration(4000);
+          setAltitude(
+            () => (feat) =>
+              Math.max(0.1, Math.sqrt(+feat.properties.POP_EST) * 7e-5)
+          );
+        }, 3000);
       });
-  }, []);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!window) {
-        globeEl.current.controls().autoRotate = true;
-        globeEl.current.controls().autoRotateSpeed = 1.4;
-
-        globeEl.current.controls().enableZoom = false; // Allow manual zooming
-        globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
-        globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
-      }
-    }, 3000); // Run after 3 seconds
-
-    return () => clearTimeout(timeout); // Cleanup on unmount
   }, []);
 
   return (
