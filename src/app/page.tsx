@@ -104,7 +104,7 @@ const Home = () => {
       globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
       globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
     }
-  }, [window]);
+  }, []);
 
   return (
     <div
