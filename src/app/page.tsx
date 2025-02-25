@@ -93,18 +93,12 @@ const Home = () => {
       .then((countries) => {
         setCountries(countries);
 
-        setTimeout(() => {
-          setTransitionDuration(4000);
-          setAltitude(
-            () => (feat) =>
-              Math.max(0.1, Math.sqrt(+feat.properties.POP_EST) * 7e-5)
-          );
-        }, 3000);
+      
       });
   }, []);
 
   useEffect(() => {
-    if (!globeRef.current) {
+    if (!globeEl.current) {
       return;
     }
     globeEl.current.controls().autoRotate = true;
