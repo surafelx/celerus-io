@@ -1,17 +1,14 @@
 // @ts-nocheck
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Globe from "react-globe.gl";
 import Image from "next/image";
 import { Tektur, Khand } from "next/font/google";
 import * as THREE from "three";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-
-const Globe = dynamic(() => import('react-globe.gl'), {
-  ssr: false, // This ensures the component is only rendered on the client side
-});
-
+const Globe = dynamic(() => import('react-globe.gl').then((mod) => mod.default), {
+  ssr: false
+})
 
 const suggestions = [
   "What type of talent are you looking for?",
@@ -19,8 +16,6 @@ const suggestions = [
   "AI engineer",
   "Senior frontend engineer",
   "Backend developer",
-
-  
 ];
 
 const TypingInput = () => {
@@ -30,7 +25,6 @@ const TypingInput = () => {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    
     const currentText = suggestions[index];
     if (!deleting) {
       // Typing effect
@@ -77,8 +71,15 @@ const khand = Khand({
 
 const Home = () => {
   const globeEl = useRef();
+  const [globeMaterial, setGlobeMaterial] = useState(null);
 
   const [countries, setCountries] = useState({ features: [] });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setGlobeMaterial(new THREE.MeshBasicMaterial({ color: "#4B5EF7" }));
+    }
+  }, []);
 
   useEffect(() => {
     // load data
@@ -92,14 +93,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window != "undefined") {
       globeEl.current.controls().autoRotate = true;
       globeEl.current.controls().autoRotateSpeed = 1.4;
 
       globeEl.current.controls().enableZoom = false; // Allow manual zooming
       globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
       globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
-    }
   }, []);
 
   return (
@@ -254,7 +253,7 @@ const Home = () => {
           <div className="lg:w-[40%] hidden lg:flex justify-center z[-1]">
             <Globe
               globeImageUrl={null} // Removes the default texture
-              globeMaterial={new THREE.MeshBasicMaterial({ color: "#4B5EF7" })} // Sets globe color to red
+              globeMaterial={globeMaterial} // Sets globe color to red
               className=" flex justify-center"
               ref={globeEl}
               backgroundColor="rgba(0,0,0,0)"
