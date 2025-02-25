@@ -96,14 +96,18 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (!window) {
-      globeEl.current.controls().autoRotate = true;
-      globeEl.current.controls().autoRotateSpeed = 1.4;
+    const timeout = setTimeout(() => {
+      if (!window) {
+        globeEl.current.controls().autoRotate = true;
+        globeEl.current.controls().autoRotateSpeed = 1.4;
 
-      globeEl.current.controls().enableZoom = false; // Allow manual zooming
-      globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
-      globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
-    }
+        globeEl.current.controls().enableZoom = false; // Allow manual zooming
+        globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
+        globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
+      }
+    }, 3000); // Run after 3 seconds
+
+    return () => clearTimeout(timeout); // Cleanup on unmount
   }, []);
 
   return (
