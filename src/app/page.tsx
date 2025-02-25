@@ -6,9 +6,12 @@ import { Tektur, Khand } from "next/font/google";
 import * as THREE from "three";
 import dynamic from "next/dynamic";
 
-const Globe = dynamic(() => import('react-globe.gl').then((mod) => mod.default), {
-  ssr: false
-})
+const Globe = dynamic(
+  () => import("react-globe.gl").then((mod) => mod.default),
+  {
+    ssr: false,
+  }
+);
 
 const suggestions = [
   "What type of talent are you looking for?",
@@ -93,13 +96,15 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    if (!window) {
       globeEl.current.controls().autoRotate = true;
       globeEl.current.controls().autoRotateSpeed = 1.4;
 
       globeEl.current.controls().enableZoom = false; // Allow manual zooming
       globeEl.current.controls().zoomSpeed = 2; // Adjust zoom speed
       globeEl.current.pointOfView({ altitude: 2 }, 1000); // Set initial zoom
-  }, []);
+    }
+  }, [window]);
 
   return (
     <div
