@@ -83,7 +83,7 @@ const khand = Khand({
 });
 
 const Article = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({
