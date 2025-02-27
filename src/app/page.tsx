@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Tektur, Khand } from "next/font/google";
 import * as THREE from "three";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const Globe = dynamic(
   () => import("react-globe.gl").then((mod) => mod.default),
@@ -95,7 +96,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
 
     fetch(
       "https://raw.githubusercontent.com/vasturiano/react-globe.gl/refs/heads/master/example/datasets/ne_110m_admin_0_countries.geojson"
@@ -105,6 +106,7 @@ const Home = () => {
         setCountries(countries);
         setTimeout(() => {
           setLoading(false);
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }, 3000); // Ensures loading persists for at least 3 seconds
       })
       .catch(() => {
@@ -136,6 +138,7 @@ const Home = () => {
         background: "white",
       }}
     >
+      <div className="absolute top-0 z-[100] h-screen w-screen flex justify-center items-center bg-transparent"></div>
       <div className={`${loading && "z-[-1]"} `}>
         <header className="bg-[#E3E8F0] fixed flex justify-between w-full px-10 py-6 z-[100] items-center">
           <div className="flex gap-1 items-center">
@@ -206,13 +209,15 @@ const Home = () => {
             >
               APPLY AS TALENT
             </div>
-            <div
-              className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
-              data-aos="fade-up"
-              data-aos-delay="3000" // Apply 3-second delay
-            >
-              READ ARTICLES
-            </div>
+            <Link href="/articles/global-software-talent-the-key-to-innovation-and-growth-at-celerus-thursday-february-27-2025-8-pm">
+              <div
+                className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
+                data-aos="fade-up"
+                data-aos-delay="3000" // Apply 3-second delay
+              >
+                READ ARTICLES
+              </div>
+            </Link>
           </div>
         </header>
         <main className="bg-[#E3E8F0] min-h-[80vh] py-20">
