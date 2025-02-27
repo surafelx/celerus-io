@@ -88,7 +88,7 @@ const Article = () => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      once: true, 
+      once: true,
     });
   }, []);
 
@@ -127,14 +127,14 @@ const Article = () => {
               <div
                 className={`text-2xl leading-none text-[#4B5EF7] ${tektur.className}`}
                 data-aos="fade-up"
-                data-aos-delay="3000" 
+                data-aos-delay="3000"
               >
                 CELERUS GLOBAL
               </div>
               <div
                 className={`text-2xl leading-none text-[#344156] ${khand.className}`}
                 data-aos="fade-up"
-                data-aos-delay="3000" 
+                data-aos-delay="3000"
               >
                 INNOVATE BEYOND BOUNDARIES
               </div>
@@ -145,7 +145,7 @@ const Article = () => {
               href="https://calendly.com/surafel-yimam-celerus/30min"
               className={`cursor-pointer px-4 bg-[#4B5EF7] h-[44px] w-[199px] justify-between text-xl flex items-center ${tektur.className}`}
               data-aos="fade-up"
-              data-aos-delay="3000" 
+              data-aos-delay="3000" // Apply 3-second delay
             >
               FIND TALENT
               <svg
@@ -174,20 +174,16 @@ const Article = () => {
                 </g>
               </svg>
             </a>
-            <div
-              className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
-              data-aos="fade-up"
-              data-aos-delay="3000" 
-            >
-              APPLY AS TALENT
-            </div>
-            <div
-              className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
-              data-aos="fade-up"
-              data-aos-delay="3000" 
-            >
-              READ ARTICLES
-            </div>
+           
+            <Link href="/articles/global-software-talent-the-key-to-innovation-and-growth-at-celerus-thursday-february-27-2025-8-pm">
+              <div
+                className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
+                data-aos="fade-up"
+                data-aos-delay="3000" // Apply 3-second delay
+              >
+                READ ARTICLES
+              </div>
+            </Link>
           </div>
         </header>
         <main className="bg-[rgba(75, 94, 247, 1)] min-h-[80vh] py-20">
@@ -746,7 +742,7 @@ const Article = () => {
               </div>
             </Link>
 
-            <div className="flex gap-6 text-black justify-center items-center flex-wrap">
+            {/* <div className="flex gap-6 text-black justify-center items-center flex-wrap">
               <div className="bg-[#4B5EF7] p-2 cursor-pointer">
                 <svg
                   fill="#FFF"
@@ -828,7 +824,7 @@ const Article = () => {
                   <a href="https://logotyp.us/logo/twitter-x">Twitter X logo</a>
                 </svg>
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <div className="flex gap-1 items-center justify-center">
@@ -866,7 +862,7 @@ const Article = () => {
                   <div
                     className={`text-2xl leading-none text-[#344156] ${khand.className}`}
                   >
-                    hello@celerus.io
+                    recruiter@celerus.io
                   </div>
                 </div>
                 <div className={`mt-2 flex gap-2 items-center`}>

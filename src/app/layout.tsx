@@ -33,6 +33,10 @@ export default function RootLayout({
         {children}
         <Script src="https://cdn.lordicon.com/lordicon.js" />
         <Script src="https://assets.calendly.com/assets/external/widget.js" />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-0XSG97S11K"
+        />
         <Script id="google-analytics">
           {`
           window.dataLayer = window.dataLayer || [];

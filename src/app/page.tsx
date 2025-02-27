@@ -202,13 +202,7 @@ const Home = () => {
                 </g>
               </svg>
             </a>
-            <div
-              className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
-              data-aos="fade-up"
-              data-aos-delay="3000" // Apply 3-second delay
-            >
-              APPLY AS TALENT
-            </div>
+
             <Link href="/articles/global-software-talent-the-key-to-innovation-and-growth-at-celerus-thursday-february-27-2025-8-pm">
               <div
                 className={`cursor-pointer bg-[#65748C] h-[44px] w-[199px] text-xl flex items-center justify-center ${tektur.className}`}
@@ -678,7 +672,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-6 text-black justify-center items-center flex-wrap">
+            {/* <div className="flex gap-6 text-black justify-center items-center flex-wrap">
               <div className="bg-[#4B5EF7] p-2 cursor-pointer">
                 <svg
                   fill="#FFF"
@@ -760,7 +754,7 @@ const Home = () => {
                   <a href="https://logotyp.us/logo/twitter-x">Twitter X logo</a>
                 </svg>
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <div className="flex gap-1 items-center justify-center">
@@ -798,7 +792,7 @@ const Home = () => {
                   <div
                     className={`text-2xl leading-none text-[#344156] ${khand.className}`}
                   >
-                    hello@celerus.io
+                    recruiter@celerus.io
                   </div>
                 </div>
                 <div className={`mt-2 flex gap-2 items-center`}>
