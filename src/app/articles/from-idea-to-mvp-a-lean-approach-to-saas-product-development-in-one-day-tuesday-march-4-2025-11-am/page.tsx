@@ -6,95 +6,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Tektur, Khand } from "next/font/google";
 import Link from "next/link";
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  PointElement,
-  LineElement,
-} from "chart.js";
 
-// Register Chart.js components
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  PointElement,
-  LineElement
-);
-
-const C2CEmploymentVisualizationBar = () => {
-  // Data for the bar chart: Percentage of global workers in contract employment by region
-  const barData = {
-    labels: [
-      "North America",
-      "Europe",
-      "Asia-Pacific",
-      "Latin America",
-      "Middle East & Africa",
-    ],
-    datasets: [
-      {
-        label: "Percentage of Contract Workers (%)",
-        data: [30, 25, 35, 20, 15], // Example data; replace with actual statistics
-        backgroundColor: "rgba(75, 94, 247, 0.7)",
-        borderColor: "rgba(75, 94, 247, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  // Options for the bar chart
-  const barOptions = {
-    responsive: true,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Region",
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Percentage (%)",
-        },
-        min: 0,
-        max: 100,
-      },
-    },
-  };
-
-  // Data for the pie chart: Distribution of reasons for choosing contract work
-
-  return (
-    <div className="mb-10">
-      <div>
-        <Bar data={barData} options={barOptions} />
-        <p className="text-[#344156]">
-          Source:
-          <a
-            target="_blank"
-            className={"text-[#4B5EF7] font-italic "}
-            href="https://americanstaffing.net/research/fact-sheets-analysis-staffing-industry-trends/staffing-industry-statistics/"
-          >
-            American Staffing Association - Staffing Industry Statistics
-          </a>{" "}
-        </p>
-      </div>
-    </div>
-  );
-};
 
 const tektur = Tektur({
   subsets: ["latin"],
@@ -348,7 +260,7 @@ const Article = () => {
               <p
                 className={`text-2xl leading-[130%] text-justify text-[#344156] mb-10 fade-in-up ${khand.className}`}
               >
-                Throughout this guide, we'll integrate the example of an
+                Throughout this guide, we&apos;ll integrate the example of an
                 AI-powered Smart Scholarship Finder & Application Assistant,
                 designed to help African students discover and apply for
                 international scholarships with ease.
@@ -416,7 +328,7 @@ const Article = () => {
                           <span className="text-[#4B5EF7] pr-2">
                             The core benefit your product provides.
                           </span>
-                          The AI Scholarship Finder's UVP is personalized
+                          The AI Scholarship Finder&apos;s UVP is personalized
                           recommendations and an automated application guide.
                         </span>
                       </li>
@@ -426,7 +338,7 @@ const Article = () => {
                             How it improves efficiency, reduces costs, or
                             enhances user experience.
                           </span>
-                          The AI Scholarship Finder's UVP reduces research time
+                          The AI Scholarship Finder&apos;s UVP reduces research time
                           and improves application success rates.
                         </span>
                       </li>
