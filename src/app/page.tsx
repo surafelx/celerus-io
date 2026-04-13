@@ -141,30 +141,23 @@ const Home = () => {
       <div className="absolute top-0 z-[100] h-screen w-screen flex justify-center items-center bg-transparent"></div>
       <div className={`${loading && "z-[-1]"} `}>
         <header className="bg-[#E3E8F0] fixed flex justify-between w-full px-10 py-6 z-[100] items-center">
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-3 items-center">
             <Image
-              src="/logo.png"
-              alt="Celerus IO logo"
-              width={100}
-              height={82}
+              src="/celerus-logo.svg"
+              alt="Celerus.io logo"
+              width={50}
+              height={50}
               priority
-              data-aos="fade-up" // Animation trigger
-              data-aos-delay="3000" // Delay for 3 seconds
+              data-aos="fade-up"
+              data-aos-delay="3000"
             />
             <div className="flex flex-col gap-1 justify-center">
               <div
-                className={`text-3xl leading-none text-[#4B5EF7] ${tektur.className}`}
+                className={`text-4xl leading-none text-[#4B5EF7] ${tektur.className}`}
                 data-aos="fade-up"
-                data-aos-delay="3000" // Apply 3-second delay
+                data-aos-delay="3000"
               >
-                CELERUS GLOBAL
-              </div>
-              <div
-                className={`text-2xl leading-none text-[#344156] ${khand.className}`}
-                data-aos="fade-up"
-                data-aos-delay="3000" // Apply 3-second delay
-              >
-                INNOVATE BEYOND BOUNDARIES
+                CELERUS.IO
               </div>
             </div>
           </div>
@@ -651,24 +644,19 @@ const Home = () => {
         </section>
         <footer className="bg-[#E3E8F0] py-20 px-10 gap-20 lg:px-20 flex flex-col lg:flex-row justify-between">
           <div className="flex flex-col">
-            <div className="flex gap-1 items-center">
+            <div className="flex gap-3 items-center">
               <Image
-                src="/logo.png"
-                alt="Celerus IO logo"
-                width={100}
-                height={82}
+                src="/celerus-logo.svg"
+                alt="Celerus.io logo"
+                width={50}
+                height={50}
                 priority
               />
               <div className="flex flex-col gap-1 justify-center">
                 <div
                   className={`text-3xl leading-none text-[#4B5EF7] ${tektur.className}`}
                 >
-                  CELERUS GLOBAL
-                </div>
-                <div
-                  className={`text-2xl leading-none text-[#344156] ${khand.className}`}
-                >
-                  INNOVATE BEYOND BOUNDARIES
+                  CELERUS.IO
                 </div>
               </div>
             </div>
