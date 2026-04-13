@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTM AI Agent — Celerus.io</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1120;
+    --blue: #3B82F6;
+    --blue-light: #60A5FA;
+    --blue-dim: #1D4ED8;
+    --white: #FFFFFF;
+    --gray: #9CA3AF;
+    --gray-dark: #374151;
+    --gray-light: #E5E7EB;
+    --green: #10B981;
+    --border: rgba(59,130,246,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,17,32,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo svg { width: 32px; height: 32px; }
+  .nav-logo span {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+  .nav-badge {
+    background: var(--blue);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 48px 80px;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid var(--border);
+    color: var(--blue-light);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent { color: var(--blue); }
+  .hero p {
+    font-size: 20px;
+    color: var(--gray);
+    max-width: 620px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid var(--gray-dark);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue-light); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 48px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 48px;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+  .section-sub {
+    font-size: 18px;
+    color: var(--gray);
+    margin-bottom: 48px;
+    max-width: 640px;
+  }
+
+  /* ── WHAT IS ── */
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .what-card {
+    background: rgba(59,130,246,0.06);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .what-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .what-card p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .what-card .icon {
+    width: 36px;
+    height: 36px;
+    background: var(--blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── WHAT IT DOES ── */
+  .tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .task-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 14px;
+    color: var(--gray);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .task-item .check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .step {
+    display: flex;
+    gap: 28px;
+    position: relative;
+    padding-bottom: 48px;
+  }
+  .step:last-child { padding-bottom: 0; }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 48px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .step:last-child::before { display: none; }
+  .step-content h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-top: 10px;
+  }
+  .step-content p {
+    font-size: 15px;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+  .step-content pre {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--blue-light);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+  .step-content .step-note {
+    font-size: 13px;
+    color: var(--gray-dark);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── PROMPTS ── */
+  .prompt-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .prompt-header {
+    background: rgba(59,130,246,0.1);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .prompt-header span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue-light);
+  }
+  .prompt-header .tag {
+    background: var(--blue);
+    color: var(--white);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 700;
+  }
+  .prompt-body {
+    padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: #E5E7EB;
+    white-space: pre-wrap;
+  }
+  .prompt-body .comment { color: #6B7280; }
+
+  /* ── TOOLS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .tool-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .tool-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tool-card p {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .tool-card .badge {
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(59,130,246,0.15);
+    color: var(--blue-light);
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── OUTPUT ── */
+  .output-box {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 13px;
+    color: #D1D5DB;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.7;
+  }
+  .output-box .line { margin-bottom: 6px; }
+  .output-box .label { color: var(--blue-light); font-weight: 600; }
+
+  /* ── PRICING ── */
+  .pricing-box {
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .pricing-box .price {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .pricing-box .price span {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--gray);
+    vertical-align: super;
+  }
+  .pricing-box .price-label {
+    font-size: 16px;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 32px;
+  }
+  .pricing-features li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #D1D5DB;
+  }
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 80px;
+  }
+  footer .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  footer .footer-logo span {
+    font-weight: 700;
+    color: var(--white);
+    font-size: 16px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: rgba(59,130,246,0.08);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--gray);
+    margin: 24px 0;
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--white); }
+
+  @media (max-width: 700px) {
+    nav, .section, .hero { padding-left: 24px; padding-right: 24px; }
+    .what-grid, .tasks-grid, .tools-grid { grid-template-columns: 1fr; }
+    .what-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="32" height="32">
+      <circle cx="60" cy="60" r="55" fill="none" stroke="#3B82F6" stroke-width="6"/>
+      <circle cx="60" cy="60" r="35" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="10 6"/>
+      <circle cx="60" cy="25" r="7" fill="#3B82F6"/>
+      <circle cx="89" cy="75" r="7" fill="#3B82F6"/>
+      <circle cx="31" cy="75" r="7" fill="#3B82F6"/>
+    </svg>
+    <span>Celerus.io</span>
+  </a>
+  <span class="nav-badge">Free Guide</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Celerus.io Product Guide</div>
+  <h1>Build Your <span class="accent">GTM AI Agent</span><br>in One Afternoon</h1>
+  <p>A step-by-step playbook for building an AI agent that automates your entire go-to-market research, competitor analysis, and positioning — using OpenClaw and Claude.</p>
+  <div class="hero-actions">
+    <a href="#setup" class="btn-primary">
+      Start Building ↓
+    </a>
+    <a href="#pricing" class="btn-ghost">
+      Get the Agent Pack
+    </a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHAT IS A GTM AGENT -->
+<div class="section" id="what">
+  <div class="section-tag">01 — What Is It</div>
+  <h2>Your GTM AI Agent</h2>
+  <p class="section-sub">A GTM (Go-To-Market) AI Agent is an AI assistant that lives in your OpenClaw workflow and handles the research and strategy work that eats up days before you even start selling.</p>
+
+  <div class="what-grid">
+    <div class="what-card">
+      <div class="icon">🧠</div>
+      <h3>Market Research</h3>
+      <p>Feed it an industry or product idea and it pulls real data on market size, trends, pain points, and who's already winning.</p>
+    </div>
+    <div class="what-card">
+      <div class="icon">🔍</div>
+      <h3>Competitor Analysis</h3>
+      <p>Give it 3 competitor URLs and get back a structured breakdown of their positioning, pricing, messaging, and gaps you can exploit.</p>
+    </div>
+    <div class="what-card">
+      <div class="icon">📣</div>
+      <h3>Messaging & Positioning</h3>
+      <p>It generates 5 different positioning angles, taglines, and audience-specific value propositions based on your research.</p>
+    </div>
+    <div class="what-card">
+      <div class="icon">📋</div>
+      <h3>ICP Definition</h3>
+      <p>Defines your ideal customer profile — demographics, psychographics, objections, and where to find them — from raw notes or a URL.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Who is this for:</strong> Founders pre-launch, product marketers entering new markets, freelancers building offers for clients, anyone who needs to understand a market fast without spending a week on research.
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHAT IT DOES -->
+<div class="section" id="tasks">
+  <div class="section-tag">02 — What It Does For You</div>
+  <h2>From Raw Idea to<br>Launch-Ready GTM Strategy</h2>
+  <p class="section-sub">Here's everything the GTM Agent handles automatically when you run it:</p>
+
+  <div class="tasks-grid">
+    <div class="task-item"><span class="check">✓</span> Research any market from a product idea or URL</div>
+    <div class="task-item"><span class="check">✓</span> Identify top 5 competitors and summarize their GTM</div>
+    <div class="task-item"><span class="check">✓</span> Pull pricing models and common monetization angles</div>
+    <div class="task-item"><span class="check">✓</span> Surface top customer pain points from reviews/reddit</div>
+    <div class="task-item"><span class="check">✓</span> Generate 5 positioning angles with copy angles</div>
+    <div class="task-item"><span class="check">✓</span> Write your first cold outreach template</div>
+    <div class="task-item"><span class="check">✓</span> Define ICP: who buys, why, and where they live</div>
+    <div class="task-item"><span class="check">✓</span> Build a 30-day GTM launch checklist</div>
+    <div class="task-item"><span class="check">✓</span> Export everything as a structured Notion doc</div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- HOW TO BUILD -->
+<div class="section" id="setup">
+  <div class="section-tag">03 — Build It</div>
+  <h2>How to Build the GTM Agent</h2>
+  <p class="section-sub">Three steps. You need OpenClaw running, a Claude API key, and about 30 minutes.</p>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Create the OpenClaw Workflow</h3>
+        <p>In your OpenClaw workspace, create a new folder called <code>gtm-agent</code>. Inside it, create the following files. This is the skeleton of your agent.</p>
+        <pre># file: gtm-agent/PROMPT.md
+
+You are a senior GTM strategist with 10 years of experience in product marketing,
+growth, and competitive analysis. Your job is to take a product idea or URL and
+produce a complete, actionable go-to-market research package.
+
+Always follow this output structure:
+1. Market Snapshot (2–3 sentences, current state)
+2. Top 3 Competitors (table: Name | Positioning | Price | Key Message)
+3. Top 5 Customer Pain Points (from reviews, Reddit, G2)
+4. Positioning Angles (5 options, each with: angle name, headline, 1-sentence description)
+5. ICP Definition (demographics, psychographics, top objection, where to find them)
+6. Cold Outreach Template (1 email + 1 LinkedIn DM)
+7. 30-Day GTM Checklist (top 10 actions)
+
+Be specific. No generic advice. Ground everything in the data you find.</pre>
+        <p class="step-note">Save this as PROMPT.md — it defines how the agent thinks and what it always outputs.</p>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Create the Input Template</h3>
+        <p>Create a simple JSON input file that feeds the agent its context. Replace the values with your specific product.</p>
+        <pre># file: gtm-agent/input.json
+
+{
+  "product": "AI-powered contract review tool",
+  "product_url": "https://www.lawGeex.com",
+  "target_market": "US-based solo lawyers and small law firms (2–10 people)",
+  "price_range": "$49–$199/month",
+  "main_channel": "LinkedIn + cold email",
+  "your_name": "Alex",
+  "your_business": "Legal tech SaaS"
+}</pre>
+        <p class="step-note">Change these values depending on what you're researching. The agent reads this and adjusts all output accordingly.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Wire the Agent Together</h3>
+        <p>Create a runner script that reads the input, calls the LLM with your prompt, and outputs the results.</p>
+        <pre># file: gtm-agent/run.ts
+
+import { readFileSync } from 'fs';
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic();
+const input = JSON.parse(readFileSync('./input.json', 'utf-8'));
+
+const prompt = readFileSync('./PROMPT.md', 'utf-8');
+
+const message = await client.messages.create({
+  model: 'claude-opus-4-5',
+  max_tokens: 4096,
+  system: prompt,
+  messages: [
+    {
+      role: 'user',
+      content: `Research and build a GTM package for:
+Product: ${input.product}
+Market: ${input.target_market}
+Price: ${input.price_range}
+Channel: ${input.main_channel}`
+    }
+  ]
+});
+
+console.log(message.content[0].text);
+
+// Save output to file
+import { writeFileSync } from 'fs';
+writeFileSync('./output.md', message.content[0].text);
+console.log('✅ GTM package saved to output.md');</pre>
+        <p class="step-note">Run it with: <code>npx tsx run.ts</code>. Your complete GTM package drops into <code>output.md</code>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- THE PROMPTS THAT MATTER -->
+<div class="section" id="prompts">
+  <div class="section-tag">04 — The Critical Prompts</div>
+  <h2>The Prompts That Make<br>This Actually Work</h2>
+  <p class="section-sub">The difference between a good GTM agent and a useless one is in the prompt. Here are the two most important ones.</p>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span>🔬 Market Research Prompt</span>
+      <span class="tag">Core Prompt</span>
+    </div>
+    <div class="prompt-body">Find and summarize the current market for [PRODUCT CATEGORY]. I need:
+- Market size (TAM/SAM/SOM) with sources
+- Top 3 trends shaping this market in 2025–2026
+- Who the typical buyer is and their #1 frustration right now
+- Estimated price range customers are willing to pay
+- Any regulatory or technical barriers to entry
+
+Return a structured paragraph for each point. Be specific, not generic.</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span>📣 Positioning Prompt</span>
+      <span class="tag">Core Prompt</span>
+    </div>
+    <div class="prompt-body">Based on the following competitor research: [PASTE COMPETITOR DATA]
+
+Generate exactly 5 positioning angles for my product: [YOUR PRODUCT]
+
+For each angle include:
+- Angle name (e.g. "The Speed Play")
+- One sentence explaining the logic
+- A 6-word headline
+- 1-sentence value proposition for a cold email
+
+Then pick the strongest angle and write a full cold email template (under 100 words) and a LinkedIn DM (under 50 words) using it.</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span>📋 ICP Prompt</span>
+      <span class="tag">Bonus Prompt</span>
+    </div>
+    <div class="prompt-body">Build a detailed Ideal Customer Profile for [PRODUCT]. I need:
+- Demographics: title(s), company size, geography, tech stack they already use
+- Psychographics: biggest fear, what they value most, how they make decisions
+- Top 3 objections they raise before buying
+- Where to find them online (specific subreddits, LinkedIn groups, podcasts, newsletters)
+- What "success" looks like for them after using the product
+
+Format this as a readable one-pager I could hand to a sales rep.</div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TOOLS NEEDED -->
+<div class="section" id="tools">
+  <div class="section-tag">05 — Stack</div>
+  <h2>Tools You Need</h2>
+  <p class="section-sub">Everything here is free or has a generous free tier. No expensive SaaS required.</p>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h4>OpenClaw <span class="badge">Required</span></h4>
+      <p>Your agent runtime. Install via npm. Runs TypeScript scripts, manages API keys, and orchestrates the workflow.</p>
+    </div>
+    <div class="tool-card">
+      <h4>Claude API <span class="badge">Required</span></h4>
+      <p>$5 free credit on signup. Opus 4.5 gives the best reasoning. Use Haiku for simple tasks to save cost.</p>
+    </div>
+    <div class="tool-card">
+      <h4>TypeScript / Node.js</h4>
+      <p>Everything runs on Node.js. If you can write JavaScript, you can write this. No advanced TS knowledge needed.</p>
+    </div>
+    <div class="tool-card">
+      <h4>Notion <span class="badge">Optional</span></h4>
+      <p>Export your output.md into a Notion page for a clean client-facing GTM document. Agent can auto-create via API.</p>
+    </div>
+    <div class="tool-card">
+      <h4>Perplexity API <span class="badge">Optional</span></h4>
+      <p>For real-time market research. Feed it into Claude for synthesis. Better than browsing manually. ~$5/1000 queries.</p>
+    </div>
+    <div class="tool-card">
+      <h4>GHL / Make.com <span class="badge">Optional</span></h4>
+      <p>For automating outreach once you have the output. Send the cold emails and DMs automatically from the GTM package.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- EXAMPLE OUTPUT -->
+<div class="section" id="output">
+  <div class="section-tag">06 — What You Get</div>
+  <h2>Actual Agent Output Example</h2>
+  <p class="section-sub">Here's what the agent produces for a real product idea. This took 90 seconds to generate.</p>
+
+  <div class="output-box">
+    <div class="line"><span class="label">Product:</span> AI contract review tool for solo lawyers</div>
+    <div class="line" style="margin-top:12px; color: var(--blue-light); font-weight: 600;">MARKET SNAPSHOT</div>
+    <div class="line">Legal tech is a $32B market growing at 12% annually. The SMB segment (2–20 person firms) is massively underserved — Big Law tools are too expensive and manual review is too slow. Solo lawyers spend 6–8 hrs/week on contract review they hate.</div>
+    <div class="line" style="margin-top:12px; color: var(--blue-light); font-weight: 600;">TOP 3 COMPETITORS</div>
+    <div class="line">LawGeex | Speed + automation | $199/mo | "Review contracts in minutes"</div>
+    <div class="line">Clio | Practice management | $69/mo | "Lawyers deserve better software"</div>
+    <div class="line">Docyt | AI accounting + docs | $45/mo | "Automate the boring stuff"</div>
+    <div class="line" style="margin-top:12px; color: var(--blue-light); font-weight: 600;">STRONGEST POSITIONING ANGLE</div>
+    <div class="line">"The Solo Lawyer's Silent Partner" — Stop billing hours on contract review. Your AI partner handles it, you keep the margin.</div>
+    <div class="line" style="margin-top:12px; color: var(--blue-light); font-weight: 600;">COLD EMAIL TEMPLATE</div>
+    <div class="line">Subject: 6 hours back in your week</div>
+    <div class="line">Hi [Name], most solos we talk to spend 6–8 hours every week on contract review. That's time not billing, not networking, not sleeping.</div>
+    <div class="line">[Product] handles first-draft contract review in under 2 minutes. No setup, no training. $149/mo, cancel anytime.</div>
+    <div class="line">Worth a 10-minute call this week?</div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- PRICING / CTA -->
+<div class="section" id="pricing">
+  <div class="section-tag">07 — Ready to Ship Faster?</div>
+  <h2>Get the Full Agent Pack</h2>
+  <p class="section-sub">This guide shows you how to build it. The Agent Pack gives you everything pre-built and ready to run.</p>
+
+  <div class="pricing-box">
+    <div class="price">$29 <span>/ one-time</span></div>
+    <div class="price-label">GTM AI Agent Pack — Celerus.io</div>
+    <ul class="pricing-features">
+      <li>Complete OpenClaw project folder (ready to run)</li>
+      <li>All 3 core prompts + 2 bonus prompts</li>
+      <li>Pre-built TypeScript runner script</li>
+      <li>5 example input.json files for different markets</li>
+      <li>Sample output.md so you see exactly what to expect</li>
+      <li>30-day GTM checklist template (Notion + PDF)</li>
+      <li>Access to updates when we improve the agent</li>
+    </ul>
+    <a href="#" class="btn-primary" style="width: 100%; justify-content: center;">
+      Get the Full Pack →
+    </a>
+    <p style="font-size: 12px; color: var(--gray); margin-top: 16px;">Secure checkout via Gumroad · Instant download</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="24" height="24">
+      <circle cx="60" cy="60" r="55" fill="none" stroke="#3B82F6" stroke-width="6"/>
+      <circle cx="60" cy="60" r="35" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="10 6"/>
+      <circle cx="60" cy="25" r="7" fill="#3B82F6"/>
+      <circle cx="89" cy="75" r="7" fill="#3B82F6"/>
+      <circle cx="31" cy="75" r="7" fill="#3B82F6"/>
+    </svg>
+    <span>Celerus.io</span>
+  </div>
+  <p>Built for founders, marketers, and freelancers who move fast.<br>
+  © 2026 Celerus.io · Automate Everything. Ship Faster.</p>
+</footer>
+
+</body>
+</html>
